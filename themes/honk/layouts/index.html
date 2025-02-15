@@ -1,0 +1,147 @@
+{{ define "main" }}
+<style>
+    /* Floating feathers */
+    @keyframes floatFeather {
+        0% { transform: translate(0, 0) rotate(0deg); }
+        25% { transform: translate(20px, 20px) rotate(90deg); }
+        50% { transform: translate(0, 40px) rotate(180deg); }
+        75% { transform: translate(-20px, 20px) rotate(270deg); }
+        100% { transform: translate(0, 0) rotate(360deg); }
+    }
+
+    .feather {
+        position: fixed;
+        width: 20px;
+        height: 20px;
+        pointer-events: none;
+        z-index: 1;
+        opacity: 0.6;
+        filter: drop-shadow(1px 1px 0 var(--honk-orange));
+    }
+
+    /* Goose pond effect */
+    .home-content {
+        position: relative;
+        background: linear-gradient(
+            to bottom,
+            var(--feather-gray) 0%,
+            rgba(173, 216, 230, 0.2) 100%
+        );
+        border-radius: 15px;
+        padding: 2rem;
+    }
+
+    .home-content::before {
+        content: "🦢";
+        position: absolute;
+        top: -30px;
+        left: 50%;
+        transform: translateX(-50%) rotate(-10deg);
+        font-size: 3rem;
+        animation: float 3s infinite ease-in-out;
+    }
+
+    /* Chaotic post previews */
+    .post-preview {
+        position: relative;
+        transform-origin: center;
+        animation: wobble 5s infinite ease-in-out;
+    }
+
+    @keyframes wobble {
+        0%, 100% { transform: rotate(-1deg); }
+        50% { transform: rotate(1deg); }
+    }
+
+    .post-preview::before {
+        content: "🦆";
+        position: absolute;
+        right: -20px;
+        top: -10px;
+        font-size: 1.5rem;
+        transform: rotate(15deg);
+        animation: bounce 2s infinite ease-in-out;
+    }
+
+    @keyframes bounce {
+        0%, 100% { transform: translateY(0) rotate(15deg); }
+        50% { transform: translateY(-10px) rotate(-15deg); }
+    }
+
+    /* Goose footprints */
+    .footprint {
+        position: absolute;
+        font-size: 1.2rem;
+        color: var(--honk-orange);
+        opacity: 0.6;
+        pointer-events: none;
+        animation: fadeOut 5s forwards;
+    }
+
+    @keyframes fadeOut {
+        0% { opacity: 0.6; }
+        100% { opacity: 0; }
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Create floating feathers
+        function createFeather() {
+            const feather = document.createElement('div');
+            feather.className = 'feather';
+            feather.innerHTML = `<svg viewBox="0 0 24 24"><path fill="${Math.random() > 0.5 ? '#FF9933' : '#FF4444'}" d="M12,2C6.5,2,2,6.5,2,12c0,5.5,4.5,10,10,10s10-4.5,10-10C22,6.5,17.5,2,12,2z"/></svg>`;
+            
+            feather.style.left = Math.random() * window.innerWidth + 'px';
+            feather.style.top = -30 + 'px';
+            feather.style.animation = `floatFeather ${5 + Math.random() * 5}s infinite linear`;
+            
+            document.body.appendChild(feather);
+            
+            setTimeout(() => feather.remove(), 10000);
+        }
+
+        // Create feathers periodically
+        setInterval(createFeather, 2000);
+
+        // Add footprints on mouse movement
+        let lastFootprint = Date.now();
+        document.addEventListener('mousemove', function(e) {
+            if (Date.now() - lastFootprint > 500 && Math.random() < 0.1) {
+                const footprint = document.createElement('div');
+                footprint.className = 'footprint';
+                footprint.innerHTML = `<svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="20px" height="16px" viewBox="0 0 7970 6410" preserveAspectRatio="xMidYMid meet">
+                    <g id="layer1" fill="${Math.random() > 0.5 ? '#FF9933' : '#FF4444'}" stroke="none">
+                        <path d="M3472 5878 c-6 -7 -76 -173 -156 -368 -114 -276 -152 -361 -175 -380 -117 -101 -113 -98 -196 -109 l-80 -10 -162 70 -161 71 -327 339 c-180 186 -334 340 -342 343 -8 3 -17 -3 -23 -17 -5 -12 -66 -303 -135 -647 l-125 -625 -72 -167 c-52 -123 -76 -168 -88 -168 -10 0 -150 27 -311 60 -245 50 -326 71 -482 126 -129 45 -192 63 -199 56 -11 -11 137 -492 175 -567 11 -22 252 -476 535 -1010 l516 -970 406 -597 407 -598 193 -204 193 -205 134 -77 133 -76 115 7 114 7 96 103 96 104 139 466 139 466 16 396 c8 218 17 399 20 401 3 3 8 2 12 -1 3 -4 42 -285 85 -624 l78 -617 80 -266 c45 -146 86 -280 91 -298 9 -29 24 -39 117 -86 97 -48 117 -54 213 -65 l106 -13 79 41 c50 25 145 93 257 183 l177 143 265 325 265 325 467 805 468 805 247 550 c221 488 266 581 405 823 113 197 153 276 145 284 -8 8 -99 -22 -329 -106 l-318 -116 -169 15 c-92 8 -171 17 -175 19 -4 3 -73 146 -154 318 l-147 313 -74 504 c-41 277 -78 507 -83 512 -4 4 -13 5 -19 1 -6 -4 -88 -114 -181 -245 l-170 -238 -182 -135 c-113 -83 -220 -153 -283 -185 l-101 -51 -127 7 -127 7 -74 96 c-224 291 -194 238 -249 443 -44 163 -54 190 -96 251 -26 37 -53 68 -59 68 -10 0 -78 -76 -159 -177 -10 -13 -47 -126 -82 -250 l-63 -226 -31 -330 c-28 -297 -42 -389 -55 -375 -3 2 -27 203 -55 446 l-50 442 -89 178 c-76 152 -95 183 -137 218 -78 65 -99 77 -112 62z"/>
+                    </g>
+                </svg>`;
+                footprint.style.left = e.clientX + 'px';
+                footprint.style.top = e.clientY + 'px';
+                footprint.style.transform = `rotate(${Math.random() * 360}deg)`;
+                document.body.appendChild(footprint);
+                
+                setTimeout(() => footprint.remove(), 5000);
+                lastFootprint = Date.now();
+            }
+        });
+    });
+</script>
+
+<div class="home-content">
+    <h1 class="welcome-title">HONK HONK! Welcome to the Goose Zone!</h1>
+    {{ range .Site.RegularPages }}
+        <article class="post-preview">
+            <h2 class="post-title">
+                <a href="{{ .Permalink }}">{{ .Title }}</a>
+            </h2>
+            <div class="post-meta">
+                {{ .Date.Format "January 2, 2006" }}
+            </div>
+            <div class="post-summary">
+                {{ .Summary }}
+                <a href="{{ .Permalink }}" class="read-more">Read More HONK! →</a>
+            </div>
+        </article>
+    {{ end }}
+</div>
+{{ end }}

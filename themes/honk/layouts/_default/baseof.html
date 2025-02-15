@@ -1,0 +1,345 @@
+<!-- layouts/_default/baseof.html -->
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} - {{ .Site.Title }}{{ end }}</title>
+    <style>
+        :root {
+            --honk-orange: #FF9933;
+            --feather-gray: #E5E5E5;
+            --chaos-red: #FF4444;
+        }
+
+        /* Chaotic goose animations */
+        @keyframes waddle {
+            0% { transform: rotate(-5deg); }
+            50% { transform: rotate(5deg); }
+            100% { transform: rotate(-5deg); }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0); }
+        }
+
+        /* Goose cursor */
+        @keyframes cursorWaddle {
+            0% { transform: rotate(-10deg); }
+            50% { transform: rotate(10deg); }
+            100% { transform: rotate(-10deg); }
+        }
+
+        body {
+            font-family: 'Comic Sans MS', cursive;
+            background-color: var(--feather-gray);
+            margin: 0;
+            padding: 0;
+            cursor: none;
+            overflow-x: hidden;
+        }
+
+        /* Custom cursor */
+        .cursor {
+            position: fixed;
+            pointer-events: none;
+            width: 32px;
+            height: 32px;
+            z-index: 10000;
+            font-size: 32px;
+            transform-origin: center;
+            animation: cursorWaddle 2s infinite ease-in-out;
+        }
+
+        /* Waddling geese */
+        .wandering-goose {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            pointer-events: none;
+            z-index: 9999;
+            animation: waddle 2s infinite ease-in-out;
+            filter: drop-shadow(2px 2px 0 var(--chaos-red));
+        }
+
+        @keyframes randomWalk {
+            0%, 100% {
+                transform: translate(0, 0) scaleX(1);
+            }
+            25% {
+                transform: translate(100px, 50px) scaleX(1);
+            }
+            50% {
+                transform: translate(0, 100px) scaleX(-1);
+            }
+            75% {
+                transform: translate(-100px, 50px) scaleX(-1);
+            }
+        }
+
+        .site-header {
+            background-color: var(--honk-orange);
+            padding: 2rem;
+            text-align: center;
+            animation: float 3s infinite ease-in-out;
+        }
+
+        .site-title {
+            font-size: 3rem;
+            color: white;
+            text-shadow: 3px 3px 0 var(--chaos-red);
+            transform: rotate(-3deg);
+        }
+
+        .main-nav {
+            background-color: var(--chaos-red);
+            padding: 1rem;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links li {
+            animation: waddle 2s infinite ease-in-out;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: transform 0.3s;
+        }
+
+        .nav-links a:hover {
+            transform: scale(1.2) rotate(5deg);
+        }
+
+        .content {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 5px 5px 0 var(--chaos-red);
+            position: relative;
+        }
+
+        .content::before {
+            content: "HONK!";
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            background-color: var(--honk-orange);
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transform: rotate(15deg);
+            animation: float 2s infinite ease-in-out;
+        }
+
+        .post-title {
+            color: var(--chaos-red);
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            transform: rotate(-2deg);
+        }
+
+        .post-meta {
+            color: #666;
+            font-style: italic;
+        }
+
+        .post-content {
+            line-height: 1.6;
+        }
+
+        .post-content p::first-letter {
+            font-size: 2em;
+            color: var(--honk-orange);
+        }
+
+        .site-footer {
+            background-color: var(--honk-orange);
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Responsive goose chaos */
+        @media (max-width: 768px) {
+            .nav-links {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .site-title {
+                font-size: 2rem;
+            }
+
+            .content {
+                margin: 1rem;
+                padding: 1rem;
+            }
+        }
+
+        /* Home page styles */
+.home-content {
+    position: relative;
+}
+
+.welcome-title {
+    color: var(--chaos-red);
+    font-size: 3rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    animation: waddle 3s infinite ease-in-out;
+}
+
+.post-preview {
+    margin-bottom: 2rem;
+    padding: 1rem;
+    border: 3px solid var(--honk-orange);
+    border-radius: 10px;
+    transition: transform 0.3s;
+}
+
+.post-preview:hover {
+    transform: rotate(-1deg) scale(1.02);
+    background-color: var(--feather-gray);
+}
+
+.read-more {
+    display: inline-block;
+    margin-top: 1rem;
+    color: var(--chaos-red);
+    text-decoration: none;
+    font-weight: bold;
+    animation: waddle 2s infinite ease-in-out;
+}
+
+.read-more:hover {
+    color: var(--honk-orange);
+}
+
+/* Easter egg: clicking anywhere adds a random HONK! */
+        .honk-overlay {
+            position: fixed;
+            pointer-events: none;
+            font-family: 'Comic Sans MS', cursive;
+            color: var(--chaos-red);
+            font-size: 2rem;
+            z-index: 9999;
+            animation: float 1s forwards ease-out;
+        }
+    </style>
+    <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                // Custom cursor
+                const cursor = document.createElement('div');
+                cursor.className = 'cursor';
+                cursor.textContent = '🦢';
+                document.body.appendChild(cursor);
+
+                document.addEventListener('mousemove', function(e) {
+                    cursor.style.left = e.clientX + 'px';
+                    cursor.style.top = e.clientY + 'px';
+                });
+
+            // Click handler for HONK! text
+            document.body.addEventListener('click', function(e) {
+                const honk = document.createElement('div');
+                honk.className = 'honk-overlay';
+                honk.style.left = (e.clientX - 30) + 'px';
+                honk.style.top = (e.clientY - 30) + 'px';
+                honk.textContent = 'HONK!';
+                document.body.appendChild(honk);
+                
+                // Play random goose sound
+                const sounds = [
+                    'data:audio/wav;base64,UklGRjIAAABXQVZFZm10IBIAAAABAAEAQB8AAEAfAAABAAgAAABmYWN0BAAAAAAAAABkYXRhAAAAAA==',
+                    'data:audio/wav;base64,UklGRjIAAABXQVZFZm10IBIAAAABAAEAQB8AAEAfAAABAAgAAABmYWN0BAAAAAAAAABkYXRhAAAAAA=='
+                ];
+                const audio = new Audio(sounds[Math.floor(Math.random() * sounds.length)]);
+                audio.play().catch(() => {}); // Ignore autoplay restrictions
+                
+                setTimeout(() => {
+                    honk.remove();
+                }, 1000);
+            });
+
+            // Create wandering geese
+            function createWanderingGoose() {
+                const goose = document.createElement('div');
+                goose.className = 'wandering-goose';
+                goose.textContent = '🦢';
+                goose.style.fontSize = '40px';
+                
+                // Random starting position
+                goose.style.left = Math.random() * window.innerWidth + 'px';
+                goose.style.top = Math.random() * window.innerHeight + 'px';
+                
+                // Random walking animation
+                goose.style.animation = `waddle 2s infinite ease-in-out, randomWalk ${10 + Math.random() * 10}s infinite ease-in-out`;
+                
+                document.body.appendChild(goose);
+                
+                // Occasionally HONK!
+                setInterval(() => {
+                    if (Math.random() < 0.1) {
+                        const honk = document.createElement('div');
+                        honk.className = 'honk-overlay';
+                        honk.style.left = goose.style.left;
+                        honk.style.top = goose.style.top;
+                        honk.textContent = 'honk!';
+                        document.body.appendChild(honk);
+                        setTimeout(() => honk.remove(), 1000);
+                    }
+                }, 5000);
+            }
+
+            // Create multiple geese
+            for (let i = 0; i < 5; i++) {
+                createWanderingGoose();
+            }
+
+            // Occasionally spawn new geese
+            setInterval(() => {
+                if (document.querySelectorAll('.wandering-goose').length < 10 && Math.random() < 0.3) {
+                    createWanderingGoose();
+                }
+            }, 10000);
+        });
+    </script>
+</head>
+<body>
+    <header class="site-header">
+        <h1 class="site-title">{{ .Site.Title }}</h1>
+    </header>
+
+    <nav class="main-nav">
+        <ul class="nav-links">
+            <li><a href="{{ .Site.BaseURL }}">Home</a></li>
+            <li><a href="{{ .Site.BaseURL }}posts">Posts</a></li>
+            <li><a href="{{ .Site.BaseURL }}about">About</a></li>
+            <li><a href="{{ .Site.BaseURL }}contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <main class="content">
+        {{ block "main" . }}{{ end }}
+    </main>
+
+    <footer class="site-footer">
+        <p>© {{ now.Format "2006" }} {{ .Site.Title }} | Powered by Geese</p>
+    </footer>
+</body>
+</html>

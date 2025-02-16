@@ -1,0 +1,479 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta name="generator" content="Hugo 0.143.1">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <style>
+        :root {
+            --honk-orange: #FF9933;
+            --feather-gray: #E5E5E5;
+            --chaos-red: #FF4444;
+        }
+
+         
+        @keyframes waddle {
+            0% { transform: rotate(-5deg); }
+            50% { transform: rotate(5deg); }
+            100% { transform: rotate(-5deg); }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0); }
+        }
+
+         
+        @keyframes cursorWaddle {
+            0% { transform: rotate(-10deg); }
+            50% { transform: rotate(10deg); }
+            100% { transform: rotate(-10deg); }
+        }
+
+        body {
+            font-family: 'Comic Sans MS', cursive;
+            background-color: var(--feather-gray);
+            margin: 0;
+            padding: 0;
+            cursor: none;
+            overflow-x: hidden;
+        }
+
+         
+        .cursor {
+            position: fixed;
+            pointer-events: none;
+            width: 32px;
+            height: 32px;
+            z-index: 10000;
+            font-size: 32px;
+            transform-origin: center;
+            animation: cursorWaddle 2s infinite ease-in-out;
+        }
+
+         
+        .wandering-goose {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            pointer-events: none;
+            z-index: 9999;
+            animation: waddle 2s infinite ease-in-out;
+            filter: drop-shadow(2px 2px 0 var(--chaos-red));
+        }
+
+        @keyframes randomWalk {
+            0%, 100% {
+                transform: translate(0, 0) scaleX(1);
+            }
+            25% {
+                transform: translate(100px, 50px) scaleX(1);
+            }
+            50% {
+                transform: translate(0, 100px) scaleX(-1);
+            }
+            75% {
+                transform: translate(-100px, 50px) scaleX(-1);
+            }
+        }
+
+        .site-header {
+            background-color: var(--honk-orange);
+            padding: 2rem;
+            text-align: center;
+            animation: float 3s infinite ease-in-out;
+        }
+
+        .site-title {
+            font-size: 3rem;
+            color: white;
+            text-shadow: 3px 3px 0 var(--chaos-red);
+            transform: rotate(-3deg);
+        }
+
+        .main-nav {
+            background-color: var(--chaos-red);
+            padding: 1rem;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links li {
+            animation: waddle 2s infinite ease-in-out;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: transform 0.3s;
+        }
+
+        .nav-links a:hover {
+            transform: scale(1.2) rotate(5deg);
+        }
+
+        .content {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 5px 5px 0 var(--chaos-red);
+            position: relative;
+        }
+
+        .content::before {
+            content: "HONK!";
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            background-color: var(--honk-orange);
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transform: rotate(15deg);
+            animation: float 2s infinite ease-in-out;
+        }
+
+        .post-title {
+            color: var(--chaos-red);
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            transform: rotate(-2deg);
+        }
+
+        .post-meta {
+            color: #666;
+            font-style: italic;
+        }
+
+        .post-content {
+            line-height: 1.6;
+        }
+
+        .post-content p::first-letter {
+            font-size: 2em;
+            color: var(--honk-orange);
+        }
+
+        .site-footer {
+            background-color: var(--honk-orange);
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+         
+        @media (max-width: 768px) {
+            .nav-links {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .site-title {
+                font-size: 2rem;
+            }
+
+            .content {
+                margin: 1rem;
+                padding: 1rem;
+            }
+        }
+
+         
+.home-content {
+    position: relative;
+}
+
+.welcome-title {
+    color: var(--chaos-red);
+    font-size: 3rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    animation: waddle 3s infinite ease-in-out;
+}
+
+.post-preview {
+    margin-bottom: 2rem;
+    padding: 1rem;
+    border: 3px solid var(--honk-orange);
+    border-radius: 10px;
+    transition: transform 0.3s;
+}
+
+.post-preview:hover {
+    transform: rotate(-1deg) scale(1.02);
+    background-color: var(--feather-gray);
+}
+
+.read-more {
+    display: inline-block;
+    margin-top: 1rem;
+    color: var(--chaos-red);
+    text-decoration: none;
+    font-weight: bold;
+    animation: waddle 2s infinite ease-in-out;
+}
+
+.read-more:hover {
+    color: var(--honk-orange);
+}
+
+ 
+        .honk-overlay {
+            position: fixed;
+            pointer-events: none;
+            font-family: 'Comic Sans MS', cursive;
+            color: var(--chaos-red);
+            font-size: 2rem;
+            z-index: 9999;
+            animation: float 1s forwards ease-out;
+        }
+    </style>
+    <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                
+                const cursor = document.createElement('div');
+                cursor.className = 'cursor';
+                cursor.textContent = '🦢';
+                document.body.appendChild(cursor);
+
+                document.addEventListener('mousemove', function(e) {
+                    cursor.style.left = e.clientX + 'px';
+                    cursor.style.top = e.clientY + 'px';
+                });
+
+            
+            document.body.addEventListener('click', function(e) {
+                const honk = document.createElement('div');
+                honk.className = 'honk-overlay';
+                honk.style.left = (e.clientX - 30) + 'px';
+                honk.style.top = (e.clientY - 30) + 'px';
+                honk.textContent = 'HONK!';
+                document.body.appendChild(honk);
+                
+                
+                const sounds = [
+                    'data:audio/wav;base64,UklGRjIAAABXQVZFZm10IBIAAAABAAEAQB8AAEAfAAABAAgAAABmYWN0BAAAAAAAAABkYXRhAAAAAA==',
+                    'data:audio/wav;base64,UklGRjIAAABXQVZFZm10IBIAAAABAAEAQB8AAEAfAAABAAgAAABmYWN0BAAAAAAAAABkYXRhAAAAAA=='
+                ];
+                const audio = new Audio(sounds[Math.floor(Math.random() * sounds.length)]);
+                audio.play().catch(() => {}); 
+                
+                setTimeout(() => {
+                    honk.remove();
+                }, 1000);
+            });
+
+            
+            function createWanderingGoose() {
+                const goose = document.createElement('div');
+                goose.className = 'wandering-goose';
+                goose.textContent = '🦢';
+                goose.style.fontSize = '40px';
+                
+                
+                goose.style.left = Math.random() * window.innerWidth + 'px';
+                goose.style.top = Math.random() * window.innerHeight + 'px';
+                
+                
+                goose.style.animation = `waddle 2s infinite ease-in-out, randomWalk ${10 + Math.random() * 10}s infinite ease-in-out`;
+                
+                document.body.appendChild(goose);
+                
+                
+                setInterval(() => {
+                    if (Math.random() < 0.1) {
+                        const honk = document.createElement('div');
+                        honk.className = 'honk-overlay';
+                        honk.style.left = goose.style.left;
+                        honk.style.top = goose.style.top;
+                        honk.textContent = 'honk!';
+                        document.body.appendChild(honk);
+                        setTimeout(() => honk.remove(), 1000);
+                    }
+                }, 5000);
+            }
+
+            
+            for (let i = 0; i < 5; i++) {
+                createWanderingGoose();
+            }
+
+            
+            setInterval(() => {
+                if (document.querySelectorAll('.wandering-goose').length < 10 && Math.random() < 0.3) {
+                    createWanderingGoose();
+                }
+            }, 10000);
+        });
+    </script>
+</head>
+<body>
+    <header class="site-header">
+        <h1 class="site-title"></h1>
+    </header>
+
+    <nav class="main-nav">
+        <ul class="nav-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/posts">Posts</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <main class="content">
+        
+<style>
+     
+    @keyframes floatFeather {
+        0% { transform: translate(0, 0) rotate(0deg); }
+        25% { transform: translate(20px, 20px) rotate(90deg); }
+        50% { transform: translate(0, 40px) rotate(180deg); }
+        75% { transform: translate(-20px, 20px) rotate(270deg); }
+        100% { transform: translate(0, 0) rotate(360deg); }
+    }
+
+    .feather {
+        position: fixed;
+        width: 20px;
+        height: 20px;
+        pointer-events: none;
+        z-index: 1;
+        opacity: 0.6;
+        filter: drop-shadow(1px 1px 0 var(--honk-orange));
+    }
+
+     
+    .home-content {
+        position: relative;
+        background: linear-gradient(
+            to bottom,
+            var(--feather-gray) 0%,
+            rgba(173, 216, 230, 0.2) 100%
+        );
+        border-radius: 15px;
+        padding: 2rem;
+    }
+
+    .home-content::before {
+        content: "🦢";
+        position: absolute;
+        top: -30px;
+        left: 50%;
+        transform: translateX(-50%) rotate(-10deg);
+        font-size: 3rem;
+        animation: float 3s infinite ease-in-out;
+    }
+
+     
+    .post-preview {
+        position: relative;
+        transform-origin: center;
+        animation: wobble 5s infinite ease-in-out;
+    }
+
+    @keyframes wobble {
+        0%, 100% { transform: rotate(-1deg); }
+        50% { transform: rotate(1deg); }
+    }
+
+    .post-preview::before {
+        content: "🦆";
+        position: absolute;
+        right: -20px;
+        top: -10px;
+        font-size: 1.5rem;
+        transform: rotate(15deg);
+        animation: bounce 2s infinite ease-in-out;
+    }
+
+    @keyframes bounce {
+        0%, 100% { transform: translateY(0) rotate(15deg); }
+        50% { transform: translateY(-10px) rotate(-15deg); }
+    }
+
+     
+    .footprint {
+        position: absolute;
+        font-size: 1.2rem;
+        color: var(--honk-orange);
+        opacity: 0.6;
+        pointer-events: none;
+        animation: fadeOut 5s forwards;
+    }
+
+    @keyframes fadeOut {
+        0% { opacity: 0.6; }
+        100% { opacity: 0; }
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        
+        function createFeather() {
+            const feather = document.createElement('div');
+            feather.className = 'feather';
+            feather.innerHTML = `<svg viewBox="0 0 24 24"><path fill="${Math.random() > 0.5 ? '#FF9933' : '#FF4444'}" d="M12,2C6.5,2,2,6.5,2,12c0,5.5,4.5,10,10,10s10-4.5,10-10C22,6.5,17.5,2,12,2z"/></svg>`;
+            
+            feather.style.left = Math.random() * window.innerWidth + 'px';
+            feather.style.top = -30 + 'px';
+            feather.style.animation = `floatFeather ${5 + Math.random() * 5}s infinite linear`;
+            
+            document.body.appendChild(feather);
+            
+            setTimeout(() => feather.remove(), 10000);
+        }
+
+        
+        setInterval(createFeather, 2000);
+
+        
+        let lastFootprint = Date.now();
+        document.addEventListener('mousemove', function(e) {
+            if (Date.now() - lastFootprint > 500 && Math.random() < 0.1) {
+                const footprint = document.createElement('div');
+                footprint.className = 'footprint';
+                footprint.innerHTML = `<svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="20px" height="16px" viewBox="0 0 7970 6410" preserveAspectRatio="xMidYMid meet">
+                    <g id="layer1" fill="${Math.random() > 0.5 ? '#FF9933' : '#FF4444'}" stroke="none">
+                        <path d="M3472 5878 c-6 -7 -76 -173 -156 -368 -114 -276 -152 -361 -175 -380 -117 -101 -113 -98 -196 -109 l-80 -10 -162 70 -161 71 -327 339 c-180 186 -334 340 -342 343 -8 3 -17 -3 -23 -17 -5 -12 -66 -303 -135 -647 l-125 -625 -72 -167 c-52 -123 -76 -168 -88 -168 -10 0 -150 27 -311 60 -245 50 -326 71 -482 126 -129 45 -192 63 -199 56 -11 -11 137 -492 175 -567 11 -22 252 -476 535 -1010 l516 -970 406 -597 407 -598 193 -204 193 -205 134 -77 133 -76 115 7 114 7 96 103 96 104 139 466 139 466 16 396 c8 218 17 399 20 401 3 3 8 2 12 -1 3 -4 42 -285 85 -624 l78 -617 80 -266 c45 -146 86 -280 91 -298 9 -29 24 -39 117 -86 97 -48 117 -54 213 -65 l106 -13 79 41 c50 25 145 93 257 183 l177 143 265 325 265 325 467 805 468 805 247 550 c221 488 266 581 405 823 113 197 153 276 145 284 -8 8 -99 -22 -329 -106 l-318 -116 -169 15 c-92 8 -171 17 -175 19 -4 3 -73 146 -154 318 l-147 313 -74 504 c-41 277 -78 507 -83 512 -4 4 -13 5 -19 1 -6 -4 -88 -114 -181 -245 l-170 -238 -182 -135 c-113 -83 -220 -153 -283 -185 l-101 -51 -127 7 -127 7 -74 96 c-224 291 -194 238 -249 443 -44 163 -54 190 -96 251 -26 37 -53 68 -59 68 -10 0 -78 -76 -159 -177 -10 -13 -47 -126 -82 -250 l-63 -226 -31 -330 c-28 -297 -42 -389 -55 -375 -3 2 -27 203 -55 446 l-50 442 -89 178 c-76 152 -95 183 -137 218 -78 65 -99 77 -112 62z"/>
+                    </g>
+                </svg>`;
+                footprint.style.left = e.clientX + 'px';
+                footprint.style.top = e.clientY + 'px';
+                footprint.style.transform = `rotate(${Math.random() * 360}deg)`;
+                document.body.appendChild(footprint);
+                
+                setTimeout(() => footprint.remove(), 5000);
+                lastFootprint = Date.now();
+            }
+        });
+    });
+</script>
+
+<div class="home-content">
+    <h1 class="welcome-title">HONK HONK! Welcome to the Goose Zone!</h1>
+    
+</div>
+
+    </main>
+
+    <footer class="site-footer">
+        <p>© 2025  | Powered by Geese</p>
+    </footer>
+</body>
+</html>
